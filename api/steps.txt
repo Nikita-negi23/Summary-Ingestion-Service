@@ -1,0 +1,21 @@
+1) if folder for all documents saving in local does not exist, then create it. ( name - Documents)
+2) upload file in that "Document" Folder.
+3) now we will read pdf file content using pdf library.
+ -- > we will extract text from each page of the PDF and print it.
+4) we will integrate llm model to generate summary from extracted text from the file.
+
+5)we will check first that tenant name exist or not in master database, if exist, then 
+ -- > we will write insert command to insert summary data and raw text in summary table with tenant id.
+6) if not exist, then first we will create tenant in master database, get tenant id and then insert summary data and raw text in summary 
+     table with tenant id.
+
+7) we will send response back to user with summary data.
+====================================================
+
+tasks ->
+1. inserting record in mongo
+2. LLM integration
+3. Dockerfile
+4. docker-compose (optional)
+5. Minikube
+6. PPT & notes

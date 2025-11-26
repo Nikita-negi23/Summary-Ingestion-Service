@@ -1,0 +1,74 @@
+--Postgres--
+docker run --name postgres-container -e POSTGRES_USER=myuser -e POSTGRES_PASSWORD=mypassword -e POSTGRES_DB=mydb -p 5432:5432 -v postgres_data:/var/lib/postgresql/data -d postgres:latest  
+
+docker exec -it postgres-container psql -U myuser -d mydb 
+
+//*****************************************************************************************************************************************************//
+--MongoDB--
+docker run -d --name my-mongo -p 27017:27017 -e MONGO_INITDB_ROOT_USERNAME=admin -e MONGO_INITDB_ROOT_PASSWORD=secret mongo:7
+
+docker exec -it my-mongo mongosh -u admin -p secret --authenticationDatabase admin
+//*****************************************************************************************************************************************************//
+--Postgres--
+\dt -> show tables
+
+CREATE TABLE tenant_info (
+    name VARCHAR(100) NOT NULL
+);
+
+select * from tenant_info;
+
+//*****************************************************************************************************************************************************//
+--MongoDB
+
+// Databases.
+collection -->table
+document --> rows
+
+RDBMS - 
+    table name -> details
+
+    Name  | Age|
+    nikita| 23|
+    ankita| 23|
+    kartik| 23|
+
+MongoDB
+    collection (table) -> details
+
+    {"name" : "nikita", "age": 23}
+    {"name" : "ankita", "age": 23}
+    {"name" : "kartik", "age": 23}
+
+show dbs                                               - show all the database
+use db_name                                                - for using database
+db.tenant_details.find()                                  -- for getting rows
+db.tenant_details.deleteOne({ name: "Nikita" })
+db.tentant_details.insertOne({name:"nikita",age:23})  - for inserting record
+db.tenant_details.countDocuments()            -- used to count documents.
+//*****************************************************************************************************************************************************//
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+** if we want to build our golang app docker image :-
+docker build -t myapp:latest .                                                   ( . -> is used for that docker file is in this current location )
+
+-->> go application docker run command
+docker run -d --name go-app -p 8080:8080 myapp:latest
+//*****************************************************************************************************************************************************//
+
+------------------Docker Compose------------
+docker-compose up -d
+docker-compose down
+
+docker exec -it go-app bash                                                       
+docker logs go-app -f
+
+//*****************************************************************************************************************************************************//
+when modifying code in local ->
+    1. docker-compose down
+    2. docker build -t myapp:latest .
+    3. docker-compose up -d
+    4. docker ps
+
+
+
+    docker image prune   ------ for deleting all images.
